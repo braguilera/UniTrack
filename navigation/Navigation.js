@@ -26,15 +26,15 @@ function MyStackHome() {
                 name="HomeScreen" 
                 component={HomeScreen} 
                 options={{
-                    headerTitle: '', // Sin título
-                    headerShown: false, // Oculta el header del stack en HomeScreen
+                    headerTitle: '', 
+                    headerShown: false,
                 }}
             />
             <HomeStack.Screen 
                 name="Route" 
                 component={MyStackRoute} 
                 options={{
-                    headerShown: false, // Oculta el header del stack en Route (ya que Route es otro stack)
+                    headerShown: false, 
                 }}
             />
         </HomeStack.Navigator>
@@ -48,16 +48,16 @@ function MyStackRoute() {
                 name="RouteScreen" 
                 component={RouteScreen}
                 options={{
-                    headerTitle: '', // Sin título
-                    headerBackTitleVisible: false, // Oculta el texto del botón atrás
+                    headerTitle: '', 
+                    headerBackTitleVisible: false, 
                 }}
             />
             <RouteStack.Screen 
                 name="Map" 
                 component={MapScreen}
                 options={{
-                    headerTitle: '', // Sin título
-                    headerBackTitleVisible: false, // Oculta el texto del botón atrás
+                    headerTitle: '', 
+                    headerBackTitleVisible: false, 
                 }}
             />
         </RouteStack.Navigator>

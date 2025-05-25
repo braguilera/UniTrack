@@ -14,7 +14,6 @@ const Route = () => {
   const [activeFilter, setActiveFilter] = useState('clima')
   const [loading, setLoading] = useState(false)
   
-  // Rutas de ejemplo estáticas
   const routes = [
     {
       id: "route_1",

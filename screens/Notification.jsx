@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, ScrollView, Animated } from 'react-native';
 
-// JSON de notificaciones
 const notificationsData = [
   {
     id: 1,
@@ -37,7 +36,6 @@ const notificationsData = [
   },
 ];
 
-// Hook para rotar notificaciones
 function useRotatingNotifications(data, max = 3, interval = 4000) {
   const [start, setStart] = useState(0);
 
@@ -48,7 +46,6 @@ function useRotatingNotifications(data, max = 3, interval = 4000) {
     return () => clearInterval(timer);
   }, [data.length, interval]);
 
-  // Devuelve un array de máximo 3 notificaciones, rotando
   const notifications = [];
   for (let i = 0; i < Math.min(max, data.length); i++) {
     notifications.push(data[(start + i) % data.length]);
@@ -56,7 +53,6 @@ function useRotatingNotifications(data, max = 3, interval = 4000) {
   return notifications;
 }
 
-// Componente animado para cada notificación (solo entrada)
 const AnimatedNotification = ({ title, message, id }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(-30)).current;
