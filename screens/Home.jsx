@@ -104,8 +104,7 @@ const HomeScreen = () => {
         <View className="flex-1 bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl shadow-lg border border-gray-200 items-center justify-center">
           <View className="bg-white/80 backdrop-blur-sm rounded-xl px-6 py-4">
             <MaterialIcons name="place" size={32} color="#4B5563" style={{ alignSelf: 'center', marginBottom: 8 }} />
-            <Text className="text-gray-600 font-medium text-center">Mapa se cargará aquí</Text>
-            <Text className="text-gray-400 text-sm text-center mt-1">Componente de mapa pendiente</Text>
+            <Text className="text-gray-600 font-medium text-center">Mapa</Text>
           </View>
         </View>
       </View>

@@ -37,65 +37,7 @@ const Map = () => {
       
       <View className="flex-1 relative">
         <View className="flex-1 bg-gray-200">
-          <View className="absolute top-0 left-0 right-0 bottom-0">
-            <View className="absolute top-0 left-0 w-[25%] h-[20%] bg-gray-500 border border-gray-400">
-              <Text className="text-white text-xs font-bold p-2 text-center">UADE LABS</Text>
-            </View>
-            
-            <View className="absolute top-[20%] left-0 w-[25%] h-[20%] bg-gray-500 border border-gray-400">
-              <Text className="text-white text-xs font-bold p-2 text-center">RESIDENCIA ESCUELA</Text>
-            </View>
-            
-            <View className="absolute top-[40%] left-0 w-[25%] h-[20%] bg-gray-500 border border-gray-400">
-              <Text className="text-white text-xs font-bold p-2 text-center">INDEPENDENCIA 2</Text>
-            </View>
-            
-            <View className="absolute top-[60%] left-0 w-[25%] h-[20%] bg-blue-500 border border-gray-400">
-              <Text className="text-white text-xs font-bold p-2 text-center">INDEPENDENCIA 1</Text>
-            </View>
-            
-            <View className="absolute top-[60%] left-[25%] w-[25%] h-[40%] bg-gray-500 border border-gray-400">
-              <Text className="text-white text-xs font-bold p-2 text-center">LIMA 3</Text>
-            </View>
-            
-            <View className="absolute top-[60%] left-[50%] w-[25%] h-[40%] bg-gray-500 border border-gray-400">
-              <Text className="text-white text-xs font-bold p-2 text-center">LIMA 2</Text>
-            </View>
-            
-            <View className="absolute top-[60%] left-[75%] w-[25%] h-[20%] bg-gray-500 border border-gray-400">
-              <Text className="text-white text-xs font-bold p-2 text-center">LIMA 1</Text>
-            </View>
-            
-            <View className="absolute top-[80%] left-[75%] w-[25%] h-[20%] bg-red-500 border border-gray-400">
-              <Text className="text-white text-xs font-bold p-2 text-center">CHILE 3</Text>
-            </View>
-            
-            <View className="absolute top-0 left-[25%] w-[25%] h-[20%] bg-gray-500 border border-gray-400">
-              <Text className="text-white text-xs font-bold p-2 text-center">SALTA 2</Text>
-            </View>
-            
-            <View className="absolute top-0 left-[50%] w-[50%] h-[20%] bg-gray-500 border border-gray-400">
-              <Text className="text-white text-xs font-bold p-2 text-center">CHILE 1</Text>
-            </View>
-            
-            <View className="absolute top-[20%] left-[50%] w-[50%] h-[20%] bg-gray-500 border border-gray-400">
-              <Text className="text-white text-xs font-bold p-2 text-center">CHILE 2</Text>
-            </View>
-            
-            <View className="absolute top-[20%] left-[25%] w-[25%] h-[40%] bg-green-200 border border-gray-400">
-              <View className="absolute top-[20%] left-[30%] w-3 h-3 rounded-full bg-green-600" />
-              <View className="absolute top-[25%] left-[40%] w-3 h-3 rounded-full bg-green-600" />
-              <View className="absolute top-[30%] left-[35%] w-3 h-3 rounded-full bg-green-600" />
-              <View className="absolute top-[50%] left-[20%] w-3 h-3 rounded-full bg-green-600" />
-              <View className="absolute top-[60%] left-[30%] w-3 h-3 rounded-full bg-green-600" />
-              <View className="absolute top-[70%] left-[40%] w-3 h-3 rounded-full bg-green-600" />
-              <View className="absolute top-[80%] left-[10%] w-3 h-3 rounded-full bg-green-600" />
-            </View>
-            
-            <View className="absolute top-[75%] left-[85%] w-4 h-4 rounded-full bg-blue-500 border-2 border-white shadow-lg" />
-            
-            <View className="absolute top-[75%] left-[60%] w-[25%] h-[0.5]" style={{ borderWidth: 2, borderColor: 'black', borderStyle: 'dashed' }} />
-          </View>
+          
         </View>
         
         {/* Floor Controls */}
