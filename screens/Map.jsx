@@ -26,14 +26,7 @@ const Map = () => {
       <StatusBar barStyle="dark-content" backgroundColor="#F9FAFB" />
       
       {/* Header with back button */}
-      <View className="pt-12 px-4 pb-2 bg-white flex-row items-center">
-        <TouchableOpacity 
-          onPress={() => navigation.goBack()}
-          className="w-10 h-10 rounded-full items-center justify-center"
-        >
-          <MaterialIcons name="arrow-back" size={24} color="#111827" />
-        </TouchableOpacity>
-      </View>
+
       
       <View className="flex-1 relative">
         <View className="flex-1 bg-gray-200">

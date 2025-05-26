@@ -18,14 +18,6 @@ const HomeScreen = () => {
     'Sofia Hernández'
   ]
 
-  const handleSearch = () => {
-    if (searchText.trim()) {
-      navigation.navigate('Route', { roomNumber: searchText })
-    } else {
-      Alert.alert('Ingrese un número de salón', 'Por favor ingrese un número de salón válido para continuar.')
-    }
-  }
-
   return (
     <View className="flex-1 bg-gray-100">
       {/* Header */}
@@ -44,11 +36,9 @@ const HomeScreen = () => {
             className="bg-gray-100 rounded-xl pl-12 pr-16 py-4 text-gray-700 text-base"
             placeholderTextColor="#9CA3AF"
             returnKeyType="search"
-            onSubmitEditing={handleSearch}
           />
           <TouchableOpacity 
             className="absolute right-3 top-2 bg-blue-600 rounded-lg p-2"
-            onPress={handleSearch}
           >
             <MaterialIcons name="search" size={20} color="#FFFFFF" />
           </TouchableOpacity>

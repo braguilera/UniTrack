@@ -2,9 +2,10 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { TouchableOpacity } from "react-native";
 import Entypo from '@expo/vector-icons/Entypo';
 
-//screens
+// Screens
 import HomeScreen from "../screens/Home";
 import CameraScreen from "../screens/Camera";
 import OptionsScreen from "../screens/Options";
@@ -14,69 +15,130 @@ import RouteScreen from "../screens/Route";
 import MapScreen from "../screens/Map";
 
 const Tab = createBottomTabNavigator();
-
 const HomeStack = createNativeStackNavigator();
 const RouteStack = createNativeStackNavigator();
 const MapStack = createNativeStackNavigator();
+const CameraStack = createNativeStackNavigator();
+const InfoStack = createNativeStackNavigator();
+const OptionsStack = createNativeStackNavigator();
+const NotificationStack = createNativeStackNavigator();
+const RootStack = createNativeStackNavigator();
 
-function MyStackHome() {
+// 🔁 Función común para agregar la campana
+const withNotificationHeader = (navigation) => ({
+    headerRight: () => (
+        <TouchableOpacity
+            style={{ marginRight: 15 }}
+            onPress={() => navigation.navigate("NotificationStack")}
+        >
+            <Entypo name="bell" size={24} color="black" />
+        </TouchableOpacity>
+    ),
+});
+
+// 🔁 Stacks individuales con header y botón de notificación
+function HomeStackScreen() {
     return (
-        <HomeStack.Navigator initialRouteName="HomeScreen">
+        <HomeStack.Navigator>
             <HomeStack.Screen 
                 name="HomeScreen" 
-                component={HomeScreen} 
-                options={{
-                    headerTitle: '', 
-                    headerShown: false,
-                }}
-            />
-            <HomeStack.Screen 
-                name="Route" 
-                component={MyStackRoute} 
-                options={{
-                    headerShown: false, 
-                }}
+                component={HomeScreen}
+                options={({ navigation }) => ({
+                    title: "Home",
+                    ...withNotificationHeader(navigation),
+                })}
             />
         </HomeStack.Navigator>
     );
 }
 
-function MyStackRoute() {
+function RouteStackScreen() {
     return (
-        <RouteStack.Navigator initialRouteName="RouteScreen">
+        <RouteStack.Navigator>
             <RouteStack.Screen 
                 name="RouteScreen" 
                 component={RouteScreen}
-                options={{
-                    headerTitle: '', 
-                    headerBackTitleVisible: false, 
-                }}
+                options={({ navigation }) => ({
+                    title: "Route",
+                    ...withNotificationHeader(navigation),
+                })}
             />
             <RouteStack.Screen 
                 name="Map" 
                 component={MapScreen}
-                options={{
-                    headerTitle: '', 
-                    headerBackTitleVisible: false, 
-                }}
+                options={({ navigation }) => ({
+                    title: "Map",
+                    ...withNotificationHeader(navigation),
+                })}
             />
         </RouteStack.Navigator>
     );
 }
 
-//tabBarBadge is used to show the number of notifications
+function CameraStackScreen() {
+    return (
+        <CameraStack.Navigator>
+            <CameraStack.Screen 
+                name="CameraScreen" 
+                component={CameraScreen}
+                options={({ navigation }) => ({
+                    title: "Camera",
+                    ...withNotificationHeader(navigation),
+                })}
+            />
+        </CameraStack.Navigator>
+    );
+}
 
+function InfoStackScreen() {
+    return (
+        <InfoStack.Navigator>
+            <InfoStack.Screen 
+                name="InformationScreen" 
+                component={InformationScreen}
+                options={({ navigation }) => ({
+                    title: "Information",
+                    ...withNotificationHeader(navigation),
+                })}
+            />
+        </InfoStack.Navigator>
+    );
+}
+
+function OptionsStackScreen() {
+    return (
+        <OptionsStack.Navigator>
+            <OptionsStack.Screen 
+                name="OptionsScreen" 
+                component={OptionsScreen}
+                options={({ navigation }) => ({
+                    title: "Options",
+                    ...withNotificationHeader(navigation),
+                })}
+            />
+        </OptionsStack.Navigator>
+    );
+}
+
+function NotificationStackScreen() {
+    return (
+        <NotificationStack.Navigator>
+            <NotificationStack.Screen 
+                name="NotificationScreen" 
+                component={NotificationScreen}
+                options={{ title: "Notifications" }}
+            />
+        </NotificationStack.Navigator>
+    );
+}
+
+// 🔁 Tabs principales
 function MyTabs() {
-    return(
-        <Tab.Navigator
-            initialRouteName="Home"
-            screesOptions={{
-                headerShown: false,
-            }}
-        >
+    return (
+        <Tab.Navigator initialRouteName="Home">
             <Tab.Screen
-                name="Home" 
-                component={MyStackHome} 
+                name="Home"
+                component={HomeStackScreen}
                 options={{
                     tabBarLabel: 'Home',
                     tabBarIcon: ({ color, size }) => (
@@ -85,22 +147,20 @@ function MyTabs() {
                     headerShown: false,
                 }}
             />
-
-            <Tab.Screen 
-                name="Notification" 
-                component={NotificationScreen} 
+            <Tab.Screen
+                name="Route"
+                component={RouteStackScreen}
                 options={{
-                    tabBarLabel: 'Notification',
+                    tabBarLabel: 'Route',
                     tabBarIcon: ({ color, size }) => (
-                        <Entypo name="notification" size={size} color={color} />
+                        <Entypo name="location" size={size} color={color} />
                     ),
                     headerShown: false,
                 }}
             />
-            
-            <Tab.Screen 
-                name="Camera" 
-                component={CameraScreen} 
+            <Tab.Screen
+                name="Camera"
+                component={CameraStackScreen}
                 options={{
                     tabBarLabel: 'Camera',
                     tabBarIcon: ({ color, size }) => (
@@ -109,10 +169,9 @@ function MyTabs() {
                     headerShown: false,
                 }}
             />
-
-            <Tab.Screen 
-                name="Information" 
-                component={InformationScreen} 
+            <Tab.Screen
+                name="Information"
+                component={InfoStackScreen}
                 options={{
                     tabBarLabel: 'Information',
                     tabBarIcon: ({ color, size }) => (
@@ -121,10 +180,9 @@ function MyTabs() {
                     headerShown: false,
                 }}
             />
-
-            <Tab.Screen 
-                name="Options" 
-                component={OptionsScreen} 
+            <Tab.Screen
+                name="Options"
+                component={OptionsStackScreen}
                 options={{
                     tabBarLabel: 'Options',
                     tabBarIcon: ({ color, size }) => (
@@ -134,13 +192,17 @@ function MyTabs() {
                 }}
             />
         </Tab.Navigator>
-    )
+    );
 }
 
+// 🔁 Stack raíz que engloba todo
 export default function Navigation() {
     return (
         <NavigationContainer>
-            <MyTabs />
+            <RootStack.Navigator screenOptions={{ headerShown: false }}>
+                <RootStack.Screen name="MainTabs" component={MyTabs} />
+                <RootStack.Screen name="NotificationStack" component={NotificationStackScreen} />
+            </RootStack.Navigator>
         </NavigationContainer>
     );
 }
