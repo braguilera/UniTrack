@@ -1,5 +1,3 @@
-"use client"
-
 import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
@@ -29,7 +27,7 @@ const HomeScreen = () => {
   }
 
   return (
-    <View className="flex-1 bg-gray-50">
+    <View className="flex-1 bg-gray-100">
       {/* Header */}
       <View className="bg-white px-6 pt-12 pb-6 shadow-sm">
         <Text className="text-2xl font-bold text-gray-800 mb-6">Explorar</Text>
@@ -113,8 +111,7 @@ const HomeScreen = () => {
       <View className="px-6 pb-8">
         <View className="bg-white rounded-2xl shadow-lg p-2 flex-row">
           <TouchableOpacity
-            onPress={() => setActiveButton('mapa3d')}
-            className={`flex-1 py-4 px-6 rounded-xl flex-row items-center justify-center ${
+              className={`flex-1 py-4 px-6 rounded-xl flex-row items-center justify-center ${
               activeButton === 'mapa3d' 
                 ? 'bg-blue-600 shadow-md' 
                 : 'bg-transparent'
@@ -134,7 +131,6 @@ const HomeScreen = () => {
           </TouchableOpacity>
           
           <TouchableOpacity
-            onPress={() => setActiveButton('concurrencia')}
             className={`flex-1 py-4 px-6 rounded-xl flex-row items-center justify-center ${
               activeButton === 'concurrencia' 
                 ? 'bg-purple-600 shadow-md' 
