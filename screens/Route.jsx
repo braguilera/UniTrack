@@ -84,7 +84,7 @@ const Route = () => {
       <StatusBar barStyle="dark-content" backgroundColor="#F9FAFB" />
       
       {/* Location inputs */}
-      <View className="mx-4 mt-4 bg-white rounded-2xl shadow-md p-4 border border-gray-100">
+      <View className="mx-4 mt-4 relative bg-white rounded-2xl shadow-md p-4 border border-gray-100">
         <View className="flex-row items-center border-b border-gray-100 pb-4">
           <View className="flex-1">
             <Text className="text-xs text-gray-500 mb-1">Origen</Text>
@@ -97,8 +97,8 @@ const Route = () => {
               />
             </View>
           </View>
-          <TouchableOpacity className="ml-2 p-2 bg-gray-100 rounded-full">
-            <MaterialIcons name="my-location" size={20} color="#6B7280" />
+          <TouchableOpacity className="mr-10 p-2" onPress={() => navigation.navigate('Camera')}>
+            <MaterialIcons name="camera-alt" size={30} color="#D7D7D7" />
           </TouchableOpacity>
         </View>
         
@@ -114,16 +114,16 @@ const Route = () => {
               />
             </View>
           </View>
-          <TouchableOpacity className="ml-2 p-2 bg-gray-100 rounded-full">
-            <MaterialIcons name="search" size={20} color="#6B7280" />
+          <TouchableOpacity className="mr-10 p-2" onPress={() => navigation.navigate('Camera')}>
+            <MaterialIcons name="camera-alt" size={30} color="#D7D7D7" />
           </TouchableOpacity>
+        </View>
           <TouchableOpacity 
-            className="ml-2 p-2 bg-gray-100 rounded-full"
+            className="ml-2 p-2 absolute right-4 top-1/2 bg-gray-100 rounded-full"
             onPress={swapLocations}
           >
             <MaterialIcons name="swap-vert" size={20} color="#6B7280" />
           </TouchableOpacity>
-        </View>
       </View>
       
       {/* Considerations */}
@@ -183,8 +183,8 @@ const Route = () => {
               className="bg-white rounded-2xl shadow-sm mb-4 p-4 border border-gray-100 active:bg-gray-50"
               onPress={() => navigateToMap(routeOption)}
             >
-              <View className="flex-row justify-between items-start">
-                <View className="flex-1">
+              <View className="flex-row justify-between items-center">
+                <View className="flex-1 gap-2">
                   {/* Origin */}
                   <View className="flex-row items-center mb-3">
                     
@@ -206,38 +206,6 @@ const Route = () => {
                     </Text>
                   </View>
                   
-                  {/* Route features */}
-                  <View className="flex-row mt-3 flex-wrap">
-                    {routeOption.weatherProtected && (
-                      <View className="bg-blue-50 rounded-full px-2 py-1 mr-2 mb-1 flex-row items-center">
-                        <MaterialIcons name="umbrella" size={12} color="#3B82F6" style={{ marginRight: 2 }} />
-                        <Text className="text-xs text-blue-600">Cubierto</Text>
-                      </View>
-                    )}
-                    {routeOption.accessibility && (
-                      <View className="bg-green-50 rounded-full px-2 py-1 mr-2 mb-1 flex-row items-center">
-                        <MaterialIcons name="accessible" size={12} color="#10B981" style={{ marginRight: 2 }} />
-                        <Text className="text-xs text-green-600">Accesible</Text>
-                      </View>
-                    )}
-                    <View className={`rounded-full px-2 py-1 mr-2 mb-1 flex-row items-center
-                      ${routeOption.crowdLevel === 'low' ? 'bg-green-50' : 
-                        routeOption.crowdLevel === 'medium' ? 'bg-yellow-50' : 'bg-red-50'}`}>
-                      <MaterialIcons 
-                        name="people" 
-                        size={12} 
-                        color={routeOption.crowdLevel === 'low' ? '#10B981' : 
-                          routeOption.crowdLevel === 'medium' ? '#F59E0B' : '#EF4444'} 
-                        style={{ marginRight: 2 }} 
-                      />
-                      <Text className={`text-xs 
-                        ${routeOption.crowdLevel === 'low' ? 'text-green-600' : 
-                          routeOption.crowdLevel === 'medium' ? 'text-yellow-600' : 'text-red-600'}`}>
-                        {routeOption.crowdLevel === 'low' ? 'Poco concurrido' : 
-                          routeOption.crowdLevel === 'medium' ? 'Concurrencia media' : 'Muy concurrido'}
-                      </Text>
-                    </View>
-                  </View>
                 </View>
                 
                 {/* Time and distance */}

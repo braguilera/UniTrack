@@ -14,18 +14,18 @@ const Camera = () => {
 
       <View className="flex-row justify-around items-center py-4 mb-4">
         {/* Galería */}
-        <TouchableOpacity className="p-3 bg-gray-600 rounded-full">
-          <MaterialIcons name="photo-library" size={28} color="white" />
+        <TouchableOpacity className="p-3 bg-gray-300 rounded-full">
+          <MaterialIcons name="photo-library" size={28} color="#6B7280" />
         </TouchableOpacity>
 
         {/* Captura */}
-        <TouchableOpacity className="w-20 h-20 rounded-full border-4 border-gray-600 flex justify-center items-center">
-          <View className="w-16 h-16 bg-gray-600 rounded-full"></View>
+        <TouchableOpacity className="w-20 h-20 rounded-full border-4 border-gray-300 flex justify-center items-center">
+          <View className="w-16 h-16 bg-gray-300 rounded-full"></View>
         </TouchableOpacity>
 
         {/* Flash */}
-        <TouchableOpacity className="p-3 bg-gray-600 rounded-full">
-          <MaterialIcons name="flash-on" size={24} color="white" />
+        <TouchableOpacity className="p-3 bg-gray-300 rounded-full">
+          <MaterialIcons name="flash-on" size={24} color="#6B7280" />
         </TouchableOpacity>
       </View>
     </SafeAreaView>

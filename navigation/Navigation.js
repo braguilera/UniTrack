@@ -2,8 +2,9 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 import Entypo from '@expo/vector-icons/Entypo';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 // Screens
 import HomeScreen from "../screens/Home";
@@ -24,19 +25,44 @@ const OptionsStack = createNativeStackNavigator();
 const NotificationStack = createNativeStackNavigator();
 const RootStack = createNativeStackNavigator();
 
-// 🔁 Función común para agregar la campana
-const withNotificationHeader = (navigation) => ({
+// Notificaction
+const withNotificationHeader = (navigation, badgeCount = 3) => ({
     headerRight: () => (
         <TouchableOpacity
-            style={{ marginRight: 15 }}
+            style={{ marginRight: 15, width: 40, height: 40, justifyContent: 'center', alignItems: 'center' }}
             onPress={() => navigation.navigate("NotificationStack")}
         >
-            <Entypo name="bell" size={24} color="black" />
+            <View>
+                <MaterialCommunityIcons
+                    name="bell"
+                    size={24}
+                    color={badgeCount > 0 ? "#374151" : "#A1A1AA"} // gris oscuro si hay, gris claro si no hay
+                />
+                {badgeCount > 0 && (
+                    <View
+                        style={{
+                            position: 'absolute',
+                            right: -6,
+                            top: -4,
+                            backgroundColor: 'red',
+                            borderRadius: 8,
+                            width: 16,
+                            height: 16,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>
+                            {badgeCount}
+                        </Text>
+                    </View>
+                )}
+            </View>
         </TouchableOpacity>
     ),
 });
 
-// 🔁 Stacks individuales con header y botón de notificación
+// Home
 function HomeStackScreen() {
     return (
         <HomeStack.Navigator>
@@ -44,7 +70,7 @@ function HomeStackScreen() {
                 name="HomeScreen" 
                 component={HomeScreen}
                 options={({ navigation }) => ({
-                    title: "Home",
+                    title: "Inicio",
                     ...withNotificationHeader(navigation),
                 })}
             />
@@ -52,6 +78,7 @@ function HomeStackScreen() {
     );
 }
 
+// Route
 function RouteStackScreen() {
     return (
         <RouteStack.Navigator>
@@ -59,7 +86,7 @@ function RouteStackScreen() {
                 name="RouteScreen" 
                 component={RouteScreen}
                 options={({ navigation }) => ({
-                    title: "Route",
+                    title: "Trazar ruta",
                     ...withNotificationHeader(navigation),
                 })}
             />
@@ -67,7 +94,15 @@ function RouteStackScreen() {
                 name="Map" 
                 component={MapScreen}
                 options={({ navigation }) => ({
-                    title: "Map",
+                    title: "Mapa",
+                    ...withNotificationHeader(navigation),
+                })}
+            />
+            <RouteStack.Screen 
+                name="Camara" 
+                component={CameraStackScreen}
+                options={({ navigation }) => ({
+                    title: "Camara",
                     ...withNotificationHeader(navigation),
                 })}
             />
@@ -75,6 +110,7 @@ function RouteStackScreen() {
     );
 }
 
+// Camera
 function CameraStackScreen() {
     return (
         <CameraStack.Navigator>
@@ -82,7 +118,7 @@ function CameraStackScreen() {
                 name="CameraScreen" 
                 component={CameraScreen}
                 options={({ navigation }) => ({
-                    title: "Camera",
+                    title: "Camara",
                     ...withNotificationHeader(navigation),
                 })}
             />
@@ -90,6 +126,7 @@ function CameraStackScreen() {
     );
 }
 
+// Information
 function InfoStackScreen() {
     return (
         <InfoStack.Navigator>
@@ -97,7 +134,7 @@ function InfoStackScreen() {
                 name="InformationScreen" 
                 component={InformationScreen}
                 options={({ navigation }) => ({
-                    title: "Information",
+                    title: "Información",
                     ...withNotificationHeader(navigation),
                 })}
             />
@@ -105,6 +142,7 @@ function InfoStackScreen() {
     );
 }
 
+// Options
 function OptionsStackScreen() {
     return (
         <OptionsStack.Navigator>
@@ -112,7 +150,7 @@ function OptionsStackScreen() {
                 name="OptionsScreen" 
                 component={OptionsScreen}
                 options={({ navigation }) => ({
-                    title: "Options",
+                    title: "Opciones",
                     ...withNotificationHeader(navigation),
                 })}
             />
@@ -120,19 +158,23 @@ function OptionsStackScreen() {
     );
 }
 
+// Notification Stack
 function NotificationStackScreen() {
     return (
         <NotificationStack.Navigator>
             <NotificationStack.Screen 
                 name="NotificationScreen" 
                 component={NotificationScreen}
-                options={{ title: "Notifications" }}
+                options={{ 
+                    title: "Notificaciones", 
+                    tabBarBadge: 3,
+                }}
             />
         </NotificationStack.Navigator>
     );
 }
 
-// 🔁 Tabs principales
+// Tabs 
 function MyTabs() {
     return (
         <Tab.Navigator initialRouteName="Home">
@@ -140,7 +182,7 @@ function MyTabs() {
                 name="Home"
                 component={HomeStackScreen}
                 options={{
-                    tabBarLabel: 'Home',
+                    tabBarLabel: 'Inicio',
                     tabBarIcon: ({ color, size }) => (
                         <Entypo name="home" size={size} color={color} />
                     ),
@@ -151,7 +193,7 @@ function MyTabs() {
                 name="Route"
                 component={RouteStackScreen}
                 options={{
-                    tabBarLabel: 'Route',
+                    tabBarLabel: 'Ruta',
                     tabBarIcon: ({ color, size }) => (
                         <Entypo name="location" size={size} color={color} />
                     ),
@@ -162,7 +204,7 @@ function MyTabs() {
                 name="Camera"
                 component={CameraStackScreen}
                 options={{
-                    tabBarLabel: 'Camera',
+                    tabBarLabel: 'Camara',
                     tabBarIcon: ({ color, size }) => (
                         <Entypo name="camera" size={size} color={color} />
                     ),
@@ -173,7 +215,7 @@ function MyTabs() {
                 name="Information"
                 component={InfoStackScreen}
                 options={{
-                    tabBarLabel: 'Information',
+                    tabBarLabel: 'Información',
                     tabBarIcon: ({ color, size }) => (
                         <Entypo name="info" size={size} color={color} />
                     ),
@@ -184,7 +226,7 @@ function MyTabs() {
                 name="Options"
                 component={OptionsStackScreen}
                 options={{
-                    tabBarLabel: 'Options',
+                    tabBarLabel: 'Opciones',
                     tabBarIcon: ({ color, size }) => (
                         <Entypo name="cog" size={size} color={color} />
                     ),
@@ -195,7 +237,6 @@ function MyTabs() {
     );
 }
 
-// 🔁 Stack raíz que engloba todo
 export default function Navigation() {
     return (
         <NavigationContainer>

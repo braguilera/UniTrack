@@ -25,75 +25,65 @@ const Map = () => {
     <View className="flex-1 bg-gray-100">
       <StatusBar barStyle="dark-content" backgroundColor="#F9FAFB" />
       
-      {/* Header with back button */}
-
-      
-      <View className="flex-1 relative">
-        <View className="flex-1 bg-gray-200">
-          
-        </View>
-        
-        {/* Floor Controls */}
-        <View className="absolute bottom-32 left-0 right-0 items-center">
-          <View className="bg-white rounded-full shadow-lg flex-row items-center px-2 py-1">
-            <TouchableOpacity 
-              onPress={() => changeFloor('up')}
-              className="w-8 h-8 items-center justify-center"
-              disabled={currentFloor >= 8}
-            >
-              <MaterialIcons 
-                name="keyboard-arrow-up" 
-                size={24} 
-                color={currentFloor >= 8 ? "#D1D5DB" : "#111827"} 
-              />
-            </TouchableOpacity>
-            
-            <View className="px-4 py-1">
-              <Text className="font-medium">Piso {currentFloor}</Text>
-            </View>
-            
-            <TouchableOpacity 
-              onPress={() => changeFloor('down')}
-              className="w-8 h-8 items-center justify-center"
-              disabled={currentFloor <= 1}
-            >
-              <MaterialIcons 
-                name="keyboard-arrow-down" 
-                size={24} 
-                color={currentFloor <= 1 ? "#D1D5DB" : "#111827"} 
-              />
-            </TouchableOpacity>
+      {/* Map Placeholder */}
+      <View className="flex-1 mx-6 my-6">
+        <View className="flex-1 bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl shadow-lg border border-gray-200 items-center justify-center">
+          <View className="backdrop-blur-sm rounded-xl px-6 py-4">
+            <MaterialIcons name="place" size={32} color="#4B5563" style={{ alignSelf: 'center', marginBottom: 8 }} />
+            <Text className="text-gray-600 font-medium text-center">Mapa</Text>
           </View>
         </View>
       </View>
       
       {/* Route Info and Actions */}
       <View className="bg-white rounded-t-3xl shadow-lg pt-4 pb-8">
-        <View className="items-center mb-2">
-          <View className="w-12 h-1 bg-gray-300 rounded-full" />
-        </View>
         
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} className="px-4 mb-4">
-          <TouchableOpacity className="bg-blue-50 rounded-lg px-4 py-2 mr-3 flex-row items-center">
-            <MaterialIcons name="share" size={18} color="#3B82F6" style={{ marginRight: 6 }} />
-            <Text className="text-blue-600 font-medium">Compartir</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity className="bg-purple-50 rounded-lg px-4 py-2 mr-3 flex-row items-center">
-            <MaterialIcons name="star-outline" size={18} color="#8B5CF6" style={{ marginRight: 6 }} />
-            <Text className="text-purple-600 font-medium">Guardar</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity className="bg-green-50 rounded-lg px-4 py-2 mr-3 flex-row items-center">
+        <View className="flex-row justify-between items-center px-4 mb-4">
+          {/* Notas a la izquierda */}
+          <TouchableOpacity className="bg-green-50 rounded-lg px-4 py-2 flex-row items-center">
             <MaterialIcons name="edit" size={18} color="#10B981" style={{ marginRight: 6 }} />
             <Text className="text-green-600 font-medium">Notas</Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity className="bg-amber-50 rounded-lg px-4 py-2 mr-3 flex-row items-center">
-            <MaterialIcons name="report-problem" size={18} color="#F59E0B" style={{ marginRight: 6 }} />
-            <Text className="text-amber-600 font-medium">Reportar</Text>
+
+          {/* Piso en el centro */}
+          <View className="items-center">
+            <View className="bg-white rounded-full flex-row items-center px-2 py-1">
+              <TouchableOpacity 
+                onPress={() => changeFloor('up')}
+                className="w-8 h-8 items-center justify-center"
+                disabled={currentFloor >= 8}
+              >
+                <MaterialIcons 
+                  name="keyboard-arrow-up" 
+                  size={24} 
+                  color={currentFloor >= 8 ? "#D1D5DB" : "#111827"} 
+                />
+              </TouchableOpacity>
+              
+              <View className="px-4 py-1">
+                <Text className="font-medium">Piso {currentFloor}</Text>
+              </View>
+              
+              <TouchableOpacity 
+                onPress={() => changeFloor('down')}
+                className="w-8 h-8 items-center justify-center"
+                disabled={currentFloor <= 1}
+              >
+                <MaterialIcons 
+                  name="keyboard-arrow-down" 
+                  size={24} 
+                  color={currentFloor <= 1 ? "#D1D5DB" : "#111827"} 
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          {/* Vista en vivo a la derecha (igual estilo que Notas) */}
+          <TouchableOpacity className="bg-blue-50 rounded-lg px-4 py-2 flex-row items-center">
+            <MaterialIcons name="videocam" size={20} color="#2563eb" style={{ marginRight: 8 }} />
+            <Text className="text-blue-600 font-medium">Vista en vivo</Text>
           </TouchableOpacity>
-        </ScrollView>
+        </View>
         
         {/* Route Card */}
         <View className="mx-4 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -128,10 +118,7 @@ const Map = () => {
             </View>
           </View>
           
-          <TouchableOpacity className="bg-blue-500 py-3 flex-row items-center justify-center">
-            <MaterialIcons name="videocam" size={20} color="#FFFFFF" style={{ marginRight: 8 }} />
-            <Text className="text-white font-medium">Vista en vivo</Text>
-          </TouchableOpacity>
+
         </View>
         
         <View className="flex-row justify-around mt-4 px-4">

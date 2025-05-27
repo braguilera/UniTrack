@@ -21,8 +21,7 @@ const HomeScreen = () => {
   return (
     <View className="flex-1 bg-gray-100">
       {/* Header */}
-      <View className="bg-white px-6 pt-12 pb-6 shadow-sm">
-        <Text className="text-2xl font-bold text-gray-800 mb-6">Explorar</Text>
+      <View className="bg-white px-6 pt-4 pb-6 shadow-sm">
         
         {/* Search Bar */}
         <View className="relative">
@@ -90,7 +89,7 @@ const HomeScreen = () => {
       {/* Map Placeholder */}
       <View className="flex-1 mx-6 my-6">
         <View className="flex-1 bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl shadow-lg border border-gray-200 items-center justify-center">
-          <View className="bg-white/80 backdrop-blur-sm rounded-xl px-6 py-4">
+          <View className="backdrop-blur-sm rounded-xl px-6 py-4">
             <MaterialIcons name="place" size={32} color="#4B5563" style={{ alignSelf: 'center', marginBottom: 8 }} />
             <Text className="text-gray-600 font-medium text-center">Mapa</Text>
           </View>

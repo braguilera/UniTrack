@@ -95,10 +95,6 @@ const Notification = () => {
 
   return (
     <ScrollView className="flex-1">
-      <View className="px-5 pt-16">
-        <Text className="text-4xl font-bold mb-5">Notification</Text>
-        <View className="h-px bg-gray-300 my-4 w-full" />
-      </View>
       <View className="flex-1 bg-white p-5">
         {notifications.map((notif) => (
           <AnimatedNotification
