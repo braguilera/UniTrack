@@ -1,7 +1,7 @@
 # 📍 Unitrack TIF – Mapa Interactivo de la UADE
 **Aplicación móvil para ubicarse y moverse eficientemente dentro del campus UADE**  
 
-<div align="center" flex="column"> 
+<div align="center"> 
   <img src="https://img.shields.io/badge/React_Native-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React Native" /> 
   <img src="https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white" alt="Expo" /> 
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" /> 
@@ -11,10 +11,14 @@
 ---
 
 ## 🌟 Funcionalidades del MVP
-✔️ **Mapa 2D interactivo del campus** con navegación táctil
-✔️ **Ruteo optimizado** según la concurrencia en pasillos y espacios
-✔️ **Cálculo de rutas punto A → B** dentro de la facultad
-✔️ **Alertas en tiempo real** sobre zonas con alta concurrencia
+✔️ **Mapa 2D interactivo del campus** con navegación táctil 
+
+✔️ **Ruteo optimizado** según la concurrencia en pasillos y espacios 
+
+✔️ **Cálculo de rutas punto A → B** dentro de la facultad 
+
+✔️ **Alertas en tiempo real** sobre zonas con alta concurrencia 
+
 ✔️ **Rutas intermedias** para un mejor control de la navegación
 
 ---
@@ -45,7 +49,7 @@
 
 🔹 **Opción Alternativa: Descargar el repositorio manualmente**
 
-1. Ve a [[mi repositorio en GitHub](https://github.com/braguilera/prueba-tecnica-swapi)](https://github.com/braguilera/UniTrack).
+1. Ve a https://github.com/braguilera/UniTrack.
 2. Haz clic en **Code > Download ZIP**.
 3. Extrae el contenido y abre la carpeta en VS Code.
 
