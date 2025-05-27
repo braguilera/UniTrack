@@ -10,6 +10,7 @@ const Route = () => {
   
   const [originText, setOriginText] = useState(roomNumber || '')
   const [destinationText, setDestinationText] = useState('')
+  const [intermediateRoutes, setIntermediateRoutes] = useState([]) // Nuevo estado
   const [transportInput, setTransportInput] = useState('')
   const [activeFilter, setActiveFilter] = useState('clima')
   const [loading, setLoading] = useState(false)
@@ -77,14 +78,45 @@ const Route = () => {
     setDestinationText(tempText)
   }
 
+  // Función para agregar un destino intermedio
+  const addIntermediateRoute = () => {
+    setIntermediateRoutes([...intermediateRoutes, '']);
+  };
+
+  // Función para actualizar el valor de un destino intermedio
+  const updateIntermediateRoute = (index, value) => {
+    const updated = [...intermediateRoutes];
+    updated[index] = value;
+    setIntermediateRoutes(updated);
+  };
+
+  // Función para eliminar un destino intermedio
+  const removeIntermediateRoute = (index) => {
+    setIntermediateRoutes(intermediateRoutes.filter((_, i) => i !== index));
+  };
+
 
 
   return (
-    <View className="flex-1 bg-gray-50">
+    <ScrollView className="flex-1 bg-gray-50">
       <StatusBar barStyle="dark-content" backgroundColor="#F9FAFB" />
-      
+
+      {/* Botón + fuera del cuadro blanco */}
+      <View className="flex-row absolute right-0 top-24 items-center mx-4 mt-4">
+        <View className="flex-1" />
+        <TouchableOpacity
+          className="bg-blue-500 rounded-full p-3 shadow-md"
+          onPress={addIntermediateRoute}
+          style={{ position: 'absolute', right: 0, zIndex: 10 }}
+        >
+          <MaterialIcons name="add" size={24} color="#fff" />
+        </TouchableOpacity>
+      </View>
+
+
       {/* Location inputs */}
-      <View className="mx-4 mt-4 relative bg-white rounded-2xl shadow-md p-4 border border-gray-100">
+      <View className="ml-4 mt-4 mr-20 relative bg-white rounded-2xl shadow-md p-4 border border-gray-100">
+
         <View className="flex-row items-center border-b border-gray-100 pb-4">
           <View className="flex-1">
             <Text className="text-xs text-gray-500 mb-1">Origen</Text>
@@ -101,7 +133,33 @@ const Route = () => {
             <MaterialIcons name="camera-alt" size={30} color="#D7D7D7" />
           </TouchableOpacity>
         </View>
-        
+
+        {/* Inputs para rutas intermedias */}
+        {intermediateRoutes.map((value, idx) => (
+          <View key={idx} className="flex-row border-b border-gray-100 pb-4 items-center mt-4">
+            <View className="flex-1">
+              <Text className="text-xs text-gray-500 mb-1">Intermedio {idx + 1}</Text>
+              <View className="flex-row items-center">
+                <TextInput
+                  value={value}
+                  onChangeText={text => updateIntermediateRoute(idx, text)}
+                  placeholder="Aula"
+                  className="flex-1 text-gray-800 text-base"
+                />
+              </View>
+            </View>
+            <TouchableOpacity className="-mr-1 p-2" onPress={() => navigation.navigate('Camera')}>
+              <MaterialIcons name="camera-alt" size={30} color="#D7D7D7" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="ml-2 p-2 rounded-full"
+              onPress={() => removeIntermediateRoute(idx)}
+            >
+              <MaterialIcons name="close" size={20} color="#EF4444" />
+            </TouchableOpacity>
+          </View>
+        ))}
+
         <View className="flex-row items-center mt-4">
           <View className="flex-1">
             <Text className="text-xs text-gray-500 mb-1">Destino</Text>
@@ -118,12 +176,15 @@ const Route = () => {
             <MaterialIcons name="camera-alt" size={30} color="#D7D7D7" />
           </TouchableOpacity>
         </View>
+        {/* Solo muestra el botón de swap si NO hay rutas intermedias */}
+        {intermediateRoutes.length === 0 && (
           <TouchableOpacity 
             className="ml-2 p-2 absolute right-4 top-1/2 bg-gray-100 rounded-full"
             onPress={swapLocations}
           >
             <MaterialIcons name="swap-vert" size={20} color="#6B7280" />
           </TouchableOpacity>
+        )}
       </View>
       
       {/* Considerations */}
@@ -233,7 +294,7 @@ const Route = () => {
           </View>
         )}
       </ScrollView>
-    </View>
+    </ScrollView>
   )
 }
 
