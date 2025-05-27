@@ -13,13 +13,11 @@
 ## 🌟 Funcionalidades del MVP
 ✔️ **Mapa 2D interactivo del campus** con navegación táctil 
 
-✔️ **Ruteo optimizado** según la concurrencia en pasillos y espacios 
-
 ✔️ **Cálculo de rutas punto A → B** dentro de la facultad 
 
-✔️ **Alertas en tiempo real** sobre zonas con alta concurrencia 
+✔️ **Visualización de la concurrencia** dentro del mapa
 
-✔️ **Rutas intermedias** para un mejor control de la navegación
+✔️ **Alertas en tiempo real** sobre zonas con alta concurrencia 
 
 ---
 
