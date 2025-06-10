@@ -48,13 +48,13 @@ const salas = [
     { id: 'Comercio1', nombre: 'Comercio', coordenadas: [ { latitude: -0.0042, longitude: 0.00025 }, { latitude: -0.0042, longitude: 0.00285 }, { latitude: -0.00685, longitude: 0.00285 }, { latitude: -0.00685, longitude: 0.00025 }, ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(207, 104, 168, 0.4)', },
     { id: 'Expendedora1', nombre: 'Expendedora', coordenadas: [ { latitude: -0.0069, longitude: 0.00025 }, { latitude: -0.0069, longitude: 0.00155 }, { latitude: -0.00735, longitude: 0.00155 }, { latitude: -0.00735, longitude: 0.00025 }, ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(29, 37, 29, 0.14)', },
     { id: 'Limpieza1', nombre: 'Limpieza', coordenadas: [ { latitude: 0.01, longitude:   -0.00145 }, { latitude: 0.00846, longitude: -0.00145 }, { latitude: 0.00846, longitude: -0.0009 }, { latitude: 0.01, longitude:   -0.0009 }, ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(155, 8, 135, 0.79)', },
-    { id: 'Aula1', nombre: 'Aula', coordenadas: [ { latitude: 0.0078, longitude:   -0.00395 }, { latitude: 0.00405, longitude: -0.00395 }, { latitude: 0.00405, longitude: -0.0007 }, { latitude: 0.0078, longitude:   -0.0007 }, ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(78, 188, 240, 0.73)', },
-    { id: 'Aula2', nombre: 'Aula', coordenadas: [ { latitude: 0.004, longitude:   -0.0036 }, { latitude: 0.00038, longitude: -0.0036 }, { latitude: 0.00038, longitude: -0.00085 }, { latitude: 0.004, longitude:   -0.00085 }, ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(78, 188, 240, 0.73)', },
-    { id: 'Aula3', nombre: 'Aula', coordenadas: [ { latitude: 0.00033, longitude:   -0.0036 }, { latitude: -0.00365, longitude: -0.0036 }, { latitude: -0.00365, longitude: -0.00085 }, { latitude: 0.00033, longitude:   -0.00085 }, ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(78, 188, 240, 0.73)', },
-    { id: 'Aula4', nombre: 'Aula', coordenadas: [ { latitude: -0.0037, longitude:   -0.0036 }, { latitude: -0.00685, longitude: -0.0036 }, { latitude: -0.00685, longitude: -0.00085 }, { latitude: -0.0037, longitude:   -0.00085 }, ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(78, 188, 240, 0.73)', },
-    { id: 'Aula5', nombre: 'Aula', coordenadas: [ { latitude: -0.01, longitude: -0.0036 }, { latitude: -0.01, longitude:  0.00027 }, { latitude: -0.0085, longitude:  0.00027 }, { latitude:  -0.0085, longitude:  -0.00085 }, { latitude:  -0.0069, longitude:  -0.00085}, { latitude:  -0.0069, longitude: -0.0036} ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(78, 188, 240, 0.73)', },
-    { id: 'Aula6', nombre: 'Aula', coordenadas: [ { latitude:  0.00405, longitude:  0.00009 }, { latitude:  0.00405, longitude:  0.004 }, { latitude:  0.0078, longitude:  0.004 }, { latitude:  0.0078, longitude:  0.0012 }, { latitude:  0.00735, longitude:  0.0012 }, { latitude:  0.00735, longitude:  0.00009 } ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(78, 188, 240, 0.73)', },
-    { id: 'Aula7', nombre: 'Aula', coordenadas: [ { latitude: 0.004, longitude:   0.0003 }, { latitude: 0.00038, longitude: 0.0003 }, { latitude: 0.00038, longitude:  0.00285 }, { latitude: 0.004, longitude:   0.00285}, ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(78, 188, 240, 0.73)', },
+    { id: 'Aula1', nombre: 'Aula1', coordenadas: [ { latitude: 0.0078, longitude:   -0.00395 }, { latitude: 0.00405, longitude: -0.00395 }, { latitude: 0.00405, longitude: -0.0007 }, { latitude: 0.0078, longitude:   -0.0007 }, ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(78, 188, 240, 0.73)', },
+    { id: 'Aula2', nombre: 'Aula2', coordenadas: [ { latitude: 0.004, longitude:   -0.0036 }, { latitude: 0.00038, longitude: -0.0036 }, { latitude: 0.00038, longitude: -0.00085 }, { latitude: 0.004, longitude:   -0.00085 }, ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(78, 188, 240, 0.73)', },
+    { id: 'Aula3', nombre: 'Aula3', coordenadas: [ { latitude: 0.00033, longitude:   -0.0036 }, { latitude: -0.00365, longitude: -0.0036 }, { latitude: -0.00365, longitude: -0.00085 }, { latitude: 0.00033, longitude:   -0.00085 }, ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(78, 188, 240, 0.73)', },
+    { id: 'Aula4', nombre: 'Aula4', coordenadas: [ { latitude: -0.0037, longitude:   -0.0036 }, { latitude: -0.00685, longitude: -0.0036 }, { latitude: -0.00685, longitude: -0.00085 }, { latitude: -0.0037, longitude:   -0.00085 }, ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(78, 188, 240, 0.73)', },
+    { id: 'Aula5', nombre: 'Aula5', coordenadas: [ { latitude: -0.01, longitude: -0.0036 }, { latitude: -0.01, longitude:  0.00027 }, { latitude: -0.0085, longitude:  0.00027 }, { latitude:  -0.0085, longitude:  -0.00085 }, { latitude:  -0.0069, longitude:  -0.00085}, { latitude:  -0.0069, longitude: -0.0036} ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(78, 188, 240, 0.73)', },
+    { id: 'Aula6', nombre: 'Aula6', coordenadas: [ { latitude:  0.00405, longitude:  0.00009 }, { latitude:  0.00405, longitude:  0.004 }, { latitude:  0.0078, longitude:  0.004 }, { latitude:  0.0078, longitude:  0.0012 }, { latitude:  0.00735, longitude:  0.0012 }, { latitude:  0.00735, longitude:  0.00009 } ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(78, 188, 240, 0.73)', },
+    { id: 'Aula7', nombre: 'Aula7', coordenadas: [ { latitude: 0.004, longitude:   0.0003 }, { latitude: 0.00038, longitude: 0.0003 }, { latitude: 0.00038, longitude:  0.00285 }, { latitude: 0.004, longitude:   0.00285}, ], centro: { latitude: 0, longitude: 0.0045 }, color: 'rgba(78, 188, 240, 0.73)', },
 ];
 
 const nodosDelCamino = [
@@ -303,12 +303,12 @@ const IndoorMapScreen = () => {
 
     const handleSalaPress = (sala) => {
         setSelectedSala(sala);
-        Alert.alert('Sala Seleccionada', sala.nombre);
-        if (sala.centro && mapRef.current) {
-            mapRef.current.animateToRegion(
-                { ...sala.centro, latitudeDelta: MAP_MAIN_DIMENSION / 4, longitudeDelta: (MAP_MAIN_DIMENSION / 4) * IMAGE_ASPECT_RATIO, }, 1000
-            );
-        }
+        // Alert.alert('Sala Seleccionada', sala.nombre);
+        // if (sala.centro && mapRef.current) {
+        //     mapRef.current.animateToRegion(
+        //         { ...sala.centro, latitudeDelta: MAP_MAIN_DIMENSION / 4, longitudeDelta: (MAP_MAIN_DIMENSION / 4) * IMAGE_ASPECT_RATIO, }, 1000
+        //     );
+        // }
     };
 
     const handlePickerInicioChange = (itemValue) => {
@@ -478,7 +478,7 @@ const styles = StyleSheet.create({
     },
     rutaInfoValor: {
         fontSize: 14,
-        color: '#007AFF',
+        color: '#000000',
         fontWeight: '600',
     },
     rutaInfoError: {
