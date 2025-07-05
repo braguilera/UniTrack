@@ -13,18 +13,40 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSBluetoothAlwaysUsageDescription": "Nuestra app necesita Bluetooth para encontrar puntos de interés cercanos.",
+        "NSBluetoothPeripheralUsageDescription": "Nuestra app necesita usar el periférico de Bluetooth para funcionar como un punto de interés.",
+        "NSLocationWhenInUseUsageDescription": "Nuestra app necesita acceso a la ubicación para buscar dispositivos Bluetooth cercanos."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "android.permission.BLUETOOTH",
+        "android.permission.BLUETOOTH_ADMIN",
+        "android.permission.BLUETOOTH_CONNECT",
+        "android.permission.BLUETOOTH_SCAN",
+        "android.permission.BLUETOOTH_ADVERTISE",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAtUdSrfilYSbOzqMLzC__eP0IDYBMvgCs"
+        }
+      },
+      "package": "com.anonymous.unitrack"
     },
     "web": {
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
-    }
+    },
+    "plugins": [
+      "react-native-ble-plx"
+    ]
   }
 }

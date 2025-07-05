@@ -1,178 +1,256 @@
-"use client"
+import React, { useState, useEffect } from 'react';
+import { 
+    View, Text, TouchableOpacity, SafeAreaView, StatusBar,
+    StyleSheet, ActivityIndicator 
+} from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
-import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, StatusBar, ScrollView } from 'react-native'
-import { MaterialIcons } from '@expo/vector-icons'
-import { useNavigation, useRoute } from '@react-navigation/native'
+// Importa los componentes de mapa
+import IndexMap from '../components/IndexMap';
+import Independencia1Map from '../components/Independencia1Map';
+import Independencia2Map from '../components/Independencia2Map';
 
-const Map = () => {
-  const navigation = useNavigation()
-  const route = useRoute()
-  const { route: selectedRoute, origin, destination } = route.params || {}
-  
-  const [currentFloor, setCurrentFloor] = useState(1)
-  const [activeTab, setActiveTab] = useState('clases')
-  
-  const changeFloor = (direction) => {
-    if (direction === 'up' && currentFloor < 8) {
-      setCurrentFloor(currentFloor + 1)
-    } else if (direction === 'down' && currentFloor > 1) {
-      setCurrentFloor(currentFloor - 1)
-    }
-  }
+// MODIFICADO: Importamos el hook del contexto en lugar del hook directo
+import { useBLEContext } from '../services/BLEProvider';
 
-  return (
-    <View className="flex-1 bg-gray-100">
-      <StatusBar barStyle="dark-content" backgroundColor="#F9FAFB" />
-      
-      {/* Map Placeholder */}
-      <View className="flex-1 mx-6 my-6">
-        <View className="flex-1 bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl shadow-lg border border-gray-200 items-center justify-center">
-          <View className="backdrop-blur-sm rounded-xl px-6 py-4">
-            <MaterialIcons name="place" size={32} color="#4B5563" style={{ alignSelf: 'center', marginBottom: 8 }} />
-            <Text className="text-gray-600 font-medium text-center">Mapa</Text>
-          </View>
-        </View>
-      </View>
-      
-      {/* Route Info and Actions */}
-      <View className="bg-white rounded-t-3xl shadow-lg pt-4 pb-8">
+const HomeScreen = () => {
+    const [activeButton, setActiveButton] = useState('mapa2d');
+    const [activeMap, setActiveMap] = useState('index'); 
+    const navigation = useNavigation();
+    
+    // MODIFICADO: Consumimos los datos del contexto global
+    const { requestPermissions, scanForDevices, stopScanning, deviceCount, isScanning } = useBLEContext();
+    const [hasPermissions, setHasPermissions] = useState(false);
+
+    // --- NUEVO: Hook para iniciar el escaneo automáticamente al cargar la app ---
+    useEffect(() => {
+        const startScanOnMount = async () => {
+            const permissionsGranted = await requestPermissions();
+            if (permissionsGranted) {
+                setHasPermissions(true);
+                scanForDevices(); // Inicia el escaneo
+            } else {
+                setHasPermissions(false);
+                console.log("Los permisos de Bluetooth y ubicación son necesarios.");
+            }
+        };
+
+        startScanOnMount();
+
+        // Función de limpieza: se ejecuta cuando el componente se desmonta.
+        // Detiene el escaneo para ahorrar batería si el usuario cierra la app o navega a otra pantalla.
+        return () => {
+            stopScanning();
+        };
+    }, []); // El array vacío asegura que esto solo se ejecute una vez al montar el componente.
+
+    const renderActiveMap = () => {
+        // La lógica del mapa no cambia
+        switch (activeMap) {
+            case 'independencia1':
+                return <Independencia1Map onGoBack={() => setActiveMap('index')} deviceCount={deviceCount} />;
+            case 'independencia2':
+                return <Independencia2Map onGoBack={() => setActiveMap('index')} deviceCount={deviceCount} />;
+            case 'index':
+            default:
+                // Pasamos deviceCount a los mapas por si lo necesitas allí
+                return <IndexMap onSelectBuilding={(building) => setActiveMap(building)} deviceCount={deviceCount} />;
+        }
+    };
+
+    // --- MODIFICADO: La función renderContent ahora es mucho más simple ---
+    const renderContent = () => {
+        if (activeButton === 'concurrencia') {
+            return (
+                <View style={styles.concurrencyContainer}>
+                    <View style={styles.header}>
+                        <Text style={styles.title}>Concurrencia en Tiempo Real</Text>
+                        {isScanning && <ActivityIndicator size="small" color="#FFFFFF" style={{ marginBottom: 20 }} />}
+                        {!hasPermissions ? (
+                           <Text style={styles.permissionText}>Se requieren permisos para medir la concurrencia.</Text>
+                        ) : (
+                           <View style={styles.concurrencyDisplay}>
+                                <Text style={styles.deviceCountLabel}>Dispositivos Detectados:</Text>
+                                <Text style={styles.deviceCountNumber}>{deviceCount}</Text>
+                           </View>
+                        )}
+                    </View>
+                </View>
+            );
+        }
         
-        <View className="flex-row justify-between items-center px-4 mb-4">
-          {/* Notas a la izquierda */}
-          <TouchableOpacity className="bg-green-50 rounded-lg px-4 py-2 flex-row items-center">
-            <MaterialIcons name="edit" size={18} color="#10B981" style={{ marginRight: 6 }} />
-            <Text className="text-green-600 font-medium">Notas</Text>
-          </TouchableOpacity>
-
-          {/* Piso en el centro */}
-          <View className="items-center">
-            <View className="bg-white rounded-full flex-row items-center px-2 py-1">
-              <TouchableOpacity 
-                onPress={() => changeFloor('up')}
-                className="w-8 h-8 items-center justify-center"
-                disabled={currentFloor >= 8}
-              >
-                <MaterialIcons 
-                  name="keyboard-arrow-up" 
-                  size={24} 
-                  color={currentFloor >= 8 ? "#D1D5DB" : "#111827"} 
-                />
-              </TouchableOpacity>
-              
-              <View className="px-4 py-1">
-                <Text className="font-medium">Piso {currentFloor}</Text>
-              </View>
-              
-              <TouchableOpacity 
-                onPress={() => changeFloor('down')}
-                className="w-8 h-8 items-center justify-center"
-                disabled={currentFloor <= 1}
-              >
-                <MaterialIcons 
-                  name="keyboard-arrow-down" 
-                  size={24} 
-                  color={currentFloor <= 1 ? "#D1D5DB" : "#111827"} 
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          {/* Vista en vivo a la derecha (igual estilo que Notas) */}
-          <TouchableOpacity className="bg-blue-50 rounded-lg px-4 py-2 flex-row items-center">
-            <MaterialIcons name="videocam" size={20} color="#2563eb" style={{ marginRight: 8 }} />
-            <Text className="text-blue-600 font-medium">Vista en vivo</Text>
-          </TouchableOpacity>
-        </View>
-        
-        {/* Route Card */}
-        <View className="mx-4 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-          <View className="p-4">
-            <View className="flex-row justify-between items-start">
-              <View className="flex-1">
-                <View className="flex-row items-center mb-3">
-                  <View className="w-6 h-6 rounded-full bg-blue-100 items-center justify-center mr-3">
-                    <View className="w-3 h-3 rounded-full bg-blue-500" />
-                  </View>
-                  <Text className="text-gray-800 font-medium">
-                    {origin ? `${origin.building} | ${origin.floor} ${origin.room}` : 'LIMA 3 | 6° piso Aula 634'}
-                  </Text>
+        // La vista del mapa no cambia
+        return (
+            <View 
+                className="flex-1 bg-white rounded-3xl overflow-hidden border border-gray-100"
+                style={{
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 4 },
+                    shadowOpacity: 0.1,
+                    shadowRadius: 12,
+                    elevation: 8,
+                }}
+            >
+                <View className="bg-gray-50 px-4 py-3 border-b border-gray-100">
+                    <View className="flex-row items-center justify-between">
+                        <View className="flex-row items-center">
+                            <View className="w-2 h-2 bg-green-500 rounded-full mr-2" />
+                            <Text className="text-gray-700 font-medium text-sm">
+                                {activeMap === 'index' ? 'Vista General' : 
+                                 activeMap === 'independencia1' ? 'Independencia 1' : 
+                                 'Independencia 2'}
+                            </Text>
+                        </View>
+                        <View className="flex-row items-center">
+                            <MaterialIcons name="my-location" size={16} color="#6B7280" />
+                            <Text className="text-gray-500 text-xs ml-1">En vivo</Text>
+                        </View>
+                    </View>
                 </View>
                 
-                <View className="flex-row items-center">
-                  <View className="w-6 h-6 rounded-full bg-green-100 items-center justify-center mr-3">
-                    <View className="w-3 h-3 rounded-full bg-green-500" />
-                  </View>
-                  <Text className="text-gray-800 font-medium">
-                    {destination ? `${destination.building} | ${destination.floor} ${destination.room}` : 'UADE LABS | 3° piso Lab 365'}
-                  </Text>
+                <View className="flex-1">
+                    {renderActiveMap()}
                 </View>
-              </View>
-              
-              <View className="items-end">
-                <Text className="text-2xl font-bold text-gray-800">
-                  {selectedRoute?.time || 15} <Text className="text-sm font-normal">min</Text>
-                </Text>
-                <Text className="text-sm text-gray-500">{selectedRoute?.distance || 30} mtrs</Text>
-              </View>
             </View>
-          </View>
-          
+        );
+    };
 
-        </View>
-        
-        <View className="flex-row justify-around mt-4 px-4">
-          <TouchableOpacity 
-            onPress={() => setActiveTab('clases')}
-            className="items-center"
-          >
-            <View className={`w-12 h-12 rounded-lg items-center justify-center ${activeTab === 'clases' ? 'bg-blue-100' : 'bg-gray-100'}`}>
-              <MaterialIcons 
-                name="event-note" 
-                size={24} 
-                color={activeTab === 'clases' ? '#3B82F6' : '#6B7280'} 
-              />
-            </View>
-            <Text className={`text-xs mt-1 ${activeTab === 'clases' ? 'text-blue-600 font-medium' : 'text-gray-600'}`}>
-              Clases/Reuniones
-            </Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity 
-            onPress={() => setActiveTab('mapa3d')}
-            className="items-center"
-          >
-            <View className={`w-12 h-12 rounded-lg items-center justify-center ${activeTab === 'mapa3d' ? 'bg-blue-100' : 'bg-gray-100'}`}>
-              <MaterialIcons 
-                name="3d-rotation" 
-                size={24} 
-                color={activeTab === 'mapa3d' ? '#3B82F6' : '#6B7280'} 
-              />
-            </View>
-            <Text className={`text-xs mt-1 ${activeTab === 'mapa3d' ? 'text-blue-600 font-medium' : 'text-gray-600'}`}>
-              Mapa 3D
-            </Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity 
-            onPress={() => setActiveTab('concurrencia')}
-            className="items-center"
-          >
-            <View className={`w-12 h-12 rounded-lg items-center justify-center ${activeTab === 'concurrencia' ? 'bg-blue-100' : 'bg-gray-100'}`}>
-              <MaterialIcons 
-                name="groups" 
-                size={24} 
-                color={activeTab === 'concurrencia' ? '#3B82F6' : '#6B7280'} 
-              />
-            </View>
-            <Text className={`text-xs mt-1 ${activeTab === 'concurrencia' ? 'text-blue-600 font-medium' : 'text-gray-600'}`}>
-              Concurrencia
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
-  )
-}
+    return (
+        <SafeAreaView className="flex-1 bg-gray-50">
+            <StatusBar barStyle="dark-content" backgroundColor="#F9FAFB" />
+            
+            {/* --- Secciones de botones (sin cambios) --- */}
+            <View className="bg-white px-6 pt-2 pb-6">
+                <View className="flex-row space-x-3 mb-4">
+                    <TouchableOpacity 
+                        onPress={() => navigation.navigate('Information')}
+                        className="flex-1 bg-blue-50 border border-blue-100 rounded-2xl p-4 flex-row items-center"
+                        style={{ elevation: 3 }}
+                    >
+                        <View className="w-10 h-10 bg-blue-100 rounded-full justify-center items-center mr-3">
+                            <MaterialIcons name="info-outline" size={20} color="#3B82F6" />
+                        </View>
+                        <View className="flex-1">
+                            <Text className="text-blue-700 font-semibold text-sm">Información</Text>
+                            <Text className="text-blue-600 text-xs">Servicios del campus</Text>
+                        </View>
+                    </TouchableOpacity>
 
-export default Map
+                    <TouchableOpacity 
+                        onPress={() => navigation.navigate('Camera')}
+                        className="flex-1 bg-green-50 border border-green-100 rounded-2xl p-4 flex-row items-center"
+                        style={{ elevation: 3 }}
+                    >
+                        <View className="w-10 h-10 bg-green-100 rounded-full justify-center items-center mr-3">
+                            <MaterialIcons name="qr-code-scanner" size={20} color="#10B981" />
+                        </View>
+                        <View className="flex-1">
+                            <Text className="text-green-700 font-semibold text-sm">Escanear QR</Text>
+                            <Text className="text-green-600 text-xs">Ubicación actual</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </View>
+
+            <View className="px-6 py-6">
+                <View 
+                    className="bg-white rounded-3xl p-3 flex-row"
+                    style={{ elevation: 12 }}
+                >
+                    <TouchableOpacity
+                        onPress={() => setActiveButton('mapa2d')}
+                        className={`flex-1 py-4 px-6 rounded-2xl flex-row items-center justify-center ${
+                            activeButton === 'mapa2d' ? 'bg-blue-600' : 'bg-transparent'
+                        }`}
+                        style={activeButton === 'mapa2d' ? { elevation: 6 } : {}}
+                    >
+                        <View className={`w-8 h-8 rounded-full justify-center items-center mr-2 ${
+                            activeButton === 'mapa2d' ? 'bg-blue-500' : 'bg-gray-100'
+                        }`}>
+                            <MaterialIcons
+                                name="map"
+                                size={18}
+                                color={activeButton === 'mapa2d' ? '#FFFFFF' : '#6B7280'}
+                            />
+                        </View>
+                        <Text className={`font-semibold ${
+                            activeButton === 'mapa2d' ? 'text-white' : 'text-gray-600'
+                        }`}>
+                            Mapa 2D
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => setActiveButton('concurrencia')}
+                        className={`flex-1 py-4 px-6 rounded-2xl flex-row items-center justify-center ${
+                            activeButton === 'concurrencia' ? 'bg-purple-600' : 'bg-transparent'
+                        }`}
+                        style={activeButton === 'concurrencia' ? { elevation: 6 } : {}}
+                    >
+                        <View className={`w-8 h-8 rounded-full justify-center items-center mr-2 ${
+                            activeButton === 'concurrencia' ? 'bg-purple-500' : 'bg-gray-100'
+                        }`}>
+                            <MaterialIcons name="groups" size={18} color={activeButton === 'concurrencia' ? '#FFFFFF' : '#6B7280'}/>
+                        </View>
+                        <Text className={`font-semibold ${
+                            activeButton === 'concurrencia' ? 'text-white' : 'text-gray-600'
+                        }`}>
+                            Concurrencia
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            
+            <View className="flex-1 px-6 pb-6">
+              {renderContent()}
+            </View>
+        </SafeAreaView>
+    );
+};
+
+// --- ESTILOS MODIFICADOS ---
+const styles = StyleSheet.create({
+    concurrencyContainer: {
+        flex: 1,
+        backgroundColor: "#1e1e1e",
+        borderRadius: 24,
+        overflow: 'hidden',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    header: { 
+        padding: 20, 
+        alignItems: "center",
+    },
+    title: { 
+        fontSize: 22, 
+        fontWeight: "bold", 
+        color: "#fff", 
+        marginBottom: 24,
+        textAlign: 'center',
+    },
+    concurrencyDisplay: {
+        alignItems: 'center',
+        padding: 20,
+        backgroundColor: '#2a2a2a',
+        borderRadius: 16,
+    },
+    deviceCountLabel: {
+        fontSize: 18, 
+        color: "#bbb",
+    },
+    deviceCountNumber: {
+        fontSize: 64,
+        fontWeight: 'bold',
+        color: '#fff',
+        marginTop: 8,
+    },
+    permissionText: {
+        color: '#a0a0a0',
+        textAlign: 'center',
+        fontSize: 16,
+        paddingHorizontal: 20,
+    },
+});
+
+export default HomeScreen;
